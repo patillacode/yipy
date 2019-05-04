@@ -3,15 +3,15 @@ A Python wrapper for [Yify API](https://yts.am/api)
 
 _Only public methods are implemented, no authorization required._
 
-# Examples
+## Examples
 
 ```python
-from yipy import YiPy
+from yipy.api import Yipy
 
-api = YiPy()
+api = Yipy()
 
 # Get movies list
-movie_list = api.list(limit=10)
+movie_list = api.list()
 
 # Get movie details
 movie_details = api.movie_details(movie_id=5496)
@@ -25,10 +25,10 @@ movie_comments = api.movie_comments(movie_id=5496)
 # Get movie reviews
 movie_reviews = api.movie_reviews(movie_id=5496)
 
-# Get movie parental_guides
+# Get movie parental guides
 movie_parental_guides = api.movie_parental_guides(movie_id=5496)
 
-# Get list_ pcoming_movies
+# Get list upcoming movies
 list_upcoming_movies = api.list_upcoming_movies()
 
 # Get user details
@@ -36,128 +36,122 @@ user_details = api.user_details(user_id=16)
 ```
 
 
-# Available methods
+## Available methods
+---------------------------
+#### list ####
 
-**`list`**
+>Used to list and search through out all the available movies.
+>Can sort, filter, search and order the results.
 
-```
-Used to list and search through out all the available movies.
 
-Can sort, filter, search and order the results.
+Parameters:
 
-Args:
-    limit (int, optional): between 1 - 50 (inclusive)
-        The limit of results per page that has been set
 
-    page (int, optional): Used to see the next page of movies
-        eg limit=15 and page=2 will show you movies 15-30
+  - `limit` _(int, optional)_: between 1 - 50 (inclusive)
+	    - The limit of results per page that has been set
 
-    quality (str, optional): 720p, 1080p, 3D Used to filter by quality
+  - `page` _(int, optional)_: Used to see the next page of movies
+	    - eg: limit=15 and page=2 will show you movies 15-30
 
-    minimum_rating (int, optional): between 0 - 9 (inclusive)
-        Used to filter movie by a given minimum IMDb rating
+  - `quality` _(str, optional)_: Used to filter by quality.
+	  - `720p`
+	  - `1080p`
+	  - `3D`
 
-    query_term (str, optional): Used for movie search, matching on:
-        Movie Title/IMDb Code
-        Actor Name/IMDb Code
-        Director Name/IMDb Code
+  - `minimum_rating` _(int, optional)_: between 0 - 9 (inclusive)
+	  - Used to filter movie by a given minimum IMDb rating
 
-    genre (str, optional): Used to filter by a given genre
-        See http://www.imdb.com/genre/ for full list
+  - `query_term` _(str, optional)_: Used for movie search, matching on:
+	  - Movie Title/IMDb Code
+	  - Actor Name/IMDb Code
+	  - Director Name/IMDb Code
 
-    sort_by (str, optional): Sorts the results by choosen value:
-        title, year, rating, peers, seeds, download_count,
-        like_count, date_added
+  - `genre` _(str, optional)_: Used to filter by a given genre
+	  - See [here](http://www.imdb.com/genre/) for full list
 
-    order_by (str, optional): asc, desc
-        Orders the results by either Ascending or Descending order
+  - `sort_by` _(str, optional)_: Sorts the results by choosen value:
+	  - `title`
+	  - `year`
+	  - `rating`
+	  - `peers`
+	  - `seeds`
+	  - `download_count`
+	  - `like_count`
+	  - `date_added`
 
-    with_rt_ratings (bool, optional): Returns the list with the
-        Rotten Tomatoes rating included
+  - `order_by` _(str, optional)_: `asc` or `desc`
+	    Orders the results by either Ascending or Descending order
 
-Returns:
-    dict: the json response from the API
-```
+  - `with_rt_ratings` _(bool, optional)_:
+		- Returns the list with the Rotten Tomatoes rating included
 
-**`movie_details`**
-```
-Returns the information about a specific movie.
+---------------------------
+#### movie_details ####
 
-Args:
-    movie_id (int): The ID of the movie
+>Returns the information about a specific movie.
 
-    with_images (bool, optional): When set the data returned will
-        include the added image URLs
 
-    with_cast (bool, optional): When set the data returned will
-        include the added information about the cast
+Parameters:
 
-Returns:
-    dict: the json response from the API
-```
+  - `movie_id` _(int)_: The ID of the movie
 
-**`movie_suggestions`**
-```
-Returns 4 related movies as suggestions for the user.
+  - `with_images` _(bool, optional)_: When set the data returned will
+	    include the added image URLs
 
-Args:
-    movie_id (int): The ID of the movie
+  - `with_cast` _(bool, optional)_: When set the data returned will
+	    include the added information about the cast
 
-Returns:
-    dict: the json response from the API
-```
 
-**`movie_comments`**
-```
-Returns all the comments for the specified movie.
+---------------------------
+#### movie_suggestions ####
 
-Args:
-    movie_id (int): The ID of the movie
+>Returns 4 related movies as suggestions for the user.
 
-Returns:
-    dict: the json response from the API
-```
+Parameters:
 
-**`movie_reviews`**
-```
-Returns all the IMDb movie reviews for the specified movie.
+  - `movie_id` _(int)_: The ID of the movie
 
-Args:
-    movie_id (int): The ID of the movie
+---------------------------
+#### movie_comments ####
 
-Returns:
-    dict: the json response from the API
-```
+>Returns all the comments for the specified movie.
 
-**`movie_parental_guides`**
-```
-Returns all the parental guide ratings for the specified movie.
+Parameters:
 
-Args:
-    movie_id (int): The ID of the movie
+  - `movie_id` _(int)_: The ID of the movie
 
-Returns:
-    dict: the json response from the API
-```
+---------------------------
+#### movie_reviews ####
 
-**`list_upcoming_movies`**
-```
-Returns the 4 latest upcoming movies.
+>Returns all the IMDb movie reviews for the specified movie.
 
-Returns:
-    dict: the json response from the API
-```
+Parameters:
 
-**`user_details`**
-```
-Get a user's details.
+  - `movie_id` _(int)_: The ID of the movie
 
-Args:
-    user_id (int): The ID of the user
+---------------------------
+#### movie_parental_guides ####
 
-    with_recently_downloaded (bool, optional):
-        If set it will add the most recent downloads by the given user
+>Returns all the parental guide ratings for the specified movie.
 
-Returns:
-    dict: the json response from the API
-```
+Parameters:
+
+  - `movie_id` _(int)_: The ID of the movie
+
+---------------------------
+#### list_upcoming_movies ####
+
+>Returns the 4 latest upcoming movies.
+
+---------------------------
+#### user_details ####
+
+>Get a user's details.
+
+Parameters:
+
+  - `user_id` _(int)_: The ID of the user
+
+  - `with_recently_downloaded` _(bool, optional)_:
+	        If set it will add the most recent downloads by the given user
+
