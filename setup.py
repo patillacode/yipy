@@ -7,7 +7,7 @@ from os.path import join
 from setuptools import find_packages
 from setuptools import setup
 
-from convert import __version__
+from __init__ import __version__
 
 
 this_dir = abspath(dirname(__file__))
