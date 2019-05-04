@@ -18,23 +18,24 @@ class Yipy(object):
             dict: the json response from the API or json formatted errors
         """
         try:
-            for key, value in self.payload.items():
-                if isinstance(value, bool):
-                    self.payload[key] = json.dumps(value)
+            if self.payload:
+                for key, value in self.payload.items():
+                    if isinstance(value, bool):
+                        self.payload[key] = json.dumps(value)
             response = requests.get(
                 f'{config.YTS_API_URL}{self.endpoint}',
                 params=self.payload)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except HTTPError as http_err:
-            return {'status': response.status_code, 'status_message': http_err}
+            return {'error': http_err}
         except Exception as err:
-            return {'status': response.status_code, 'status_message': err}
+            return {'error': err}
         else:
             return response.json()
 
     def list(self, limit=20, page=1, quality='All', minimum_rating=0,
-             query_term='0', genre='All', sort_by='date_added',
+             query_term=None, genre=None, sort_by='date_added',
              order_by='desc', with_rt_ratings=False):
         """
         Used to list and search through out all the available movies.
