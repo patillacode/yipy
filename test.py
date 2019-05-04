@@ -1,4 +1,4 @@
-from api import YiPy
+from yipy import YiPy
 
 api = YiPy()
 movie_list = api.list()

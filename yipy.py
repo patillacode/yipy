@@ -1,5 +1,3 @@
-"""Summary
-"""
 import json
 import requests
 
