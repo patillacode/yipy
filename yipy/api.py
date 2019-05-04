@@ -1,12 +1,12 @@
 import json
 import requests
 
-import config
+from yipy import config
 
 from requests.exceptions import HTTPError
 
 
-class YiPy(object):
+class Yipy(object):
     def __init__(self):
         self.endpoint = None
         self.payload = None
